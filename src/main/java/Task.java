@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -7,10 +7,18 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Method to get the status icon of the task.
+     * @return Returns the status icon of the task - "X" if done, " " if not done.
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
+    /**
+     * Method to get the description of the task.
+     * @return Returns the description of the task.
+     */
     public String getDescription() {
         return this.description;
     }
@@ -23,5 +31,9 @@ public class Task {
         this.isDone = false;
     }
 
-    // ...
+    /**
+     * Method to get the type of the task.
+     * @return Returns the type of the task.
+     */
+    abstract public String getTaskType();
 }
