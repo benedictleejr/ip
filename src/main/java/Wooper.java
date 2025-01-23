@@ -24,17 +24,45 @@ public class Wooper {
 
         String openingMessage = """
                 ____________________________________________________________
-                 Hello! I'm Wooper, your personal chatbot.
-                 How can I help you today?
+                                 
+                                    Wooper:
+                                    Hello! I'm Wooper, your personal chatbot.
+                                    How can I help you today?
                 ____________________________________________________________
-                 Bye. Hope to see you again soon!
+                """;
+
+        String closingMessage = """
                 ____________________________________________________________
 
+                                            Wooper:
+                                            Bye. Hope to see you again soon!
+                ____________________________________________________________
                 """;
+
+        String promptMessage = "User: ";
 
         pw.println("Hello from");
         pw.println(logo);
         pw.println(openingMessage);
+        pw.println(promptMessage);
+        pw.flush();
+
+        String message = br.readLine().toLowerCase();
+        while (!message.equals("bye")) {
+            String output = String.format("""
+                    ____________________________________________________________
+                                                    Wooper:
+                                                    %s
+                    ____________________________________________________________
+                    """, message);
+            pw.println(output);
+            pw.flush();
+
+            pw.println(promptMessage);
+            pw.flush();
+            message = br.readLine().toLowerCase();
+        }
+        pw.println(closingMessage);
 
         br.close();
         pw.close();
