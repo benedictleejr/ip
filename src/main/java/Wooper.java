@@ -71,14 +71,38 @@ public class Wooper {
             }
 
             if (action.equals("list")) {
-                tasklist.printTasklist(pw);
-
+                tasklist.printTasklist(pw);                
+                
             } else {
-                // 5 possibilites - 3 tasks, mark, unmark
+                // 6 possibilites - 3 tasks, mark, unmark, delete
                 String[] l = action.split(" ");
 
-                // first, check mark & unmark
-                if (l.length == 2 && (l[0].equals("mark") || l[0].equals("unmark"))) {
+                // first, check delete
+                if (l.length == 2 && (l[0].equals("delete"))) {
+                    try {
+                        Integer.parseInt(l[1]);
+                    } catch (NumberFormatException e) {
+                        pw.println("\nInvalid task number.\n");
+                        pw.println(promptMessage);
+                        pw.flush();
+                        action = br.readLine().toLowerCase();
+                        continue;
+                    }
+                    int index = Integer.parseInt(l[1]) - 1;
+
+                    // check that index is valid
+                    if (index < 0 || index >= tasklist.tasklist.size()) {
+                        pw.println("\nInvalid task number.\n");
+                        pw.println(promptMessage);
+                        pw.flush();
+                        action = br.readLine().toLowerCase();
+                        continue;
+                    }
+
+                    tasklist.deleteTask(pw, index);
+
+                // then, check mark & unmark
+                } else if (l.length == 2 && (l[0].equals("mark") || l[0].equals("unmark"))) {
                     try {
                         Integer.parseInt(l[1]);
                     } catch (NumberFormatException e) {

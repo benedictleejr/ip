@@ -18,7 +18,8 @@ public class Tasklist {
         String output = String.format("""
                 ____________________________________________________________
                 
-                Got it. I've added this task:
+                Wooper:
+                Woop Woop! I've added this task:
                     [%s][ ] %s
                 Now you have %d tasks in the list.
                 ____________________________________________________________
@@ -36,6 +37,7 @@ public class Tasklist {
             String output = """
                     ____________________________________________________________
 
+                    Wooper:
                     Task List:
                     No tasks in the list.
                     ____________________________________________________________
@@ -55,6 +57,27 @@ public class Tasklist {
 
     public Task getTask(int index) {
         return this.tasklist.get(index);
+    }
+
+    /**
+     * Deletes a task from the tasklist and prints a message to the user.
+     * @param pw printwriter to print the message to the user
+     * @param index index of the task to be deleted
+     */
+    public void deleteTask(PrintWriter pw, int index) {
+        Task t = this.tasklist.get(index);
+        this.tasklist.remove(index);
+        String output = String.format("""
+                ____________________________________________________________
+                
+                Wooper:
+                Woop Woop! I've removed this task:
+                    [%s][%s] %s
+                Now you have %d tasks in the list.
+                ____________________________________________________________
+
+                """, t.getTaskType(), t.getStatusIcon(), t.getDescription(), tasklist.size());
+        pw.println(output);
     }
 
 }
