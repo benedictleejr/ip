@@ -1,7 +1,30 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ _    _                             _
+| |  | |                           | |
+| |  | | ___   ___  _ __   ___ _ __| |
+| |/\| |/ _ \ / _ \| '_ \ / _ \ '__| |
+\  /\  / (_) | (_) | |_) |  __/ |  |_|
+ \/  \/ \___/ \___/| .__/ \___|_|  (_)
+                   | |
+                   |_|
 
+____________________________________________________________
+
+Wooper:
+Hello! I'm Wooper, your personal tasklist chatbot.
+How can I help you today?
+
+Valid Commands:
+1. Add tasks:
+    a. todo <task description>
+    b. deadline <task description> /by <deadline>
+    c. event <task description> /from <start time> /to <end time>
+2. View tasks:
+    a. list
+3. Mark/unmark tasks as done:
+    a. mark <task number>
+    b. unmark <task number>
+4. Type 'exit' to exit
+____________________________________________________________
+
+User:
