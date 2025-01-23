@@ -3,6 +3,11 @@ public class ToDo extends Task {
         super(description);
     }
 
+    /**
+     * Method to get the type of the task.
+     * 
+     * @return Returns the type of the task.
+     */
     @Override
     public String getTaskType() {
         return "T";
