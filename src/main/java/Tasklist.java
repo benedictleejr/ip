@@ -108,7 +108,6 @@ public class Tasklist {
     public void saveTasks(String filePath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(this.tasklist);
-            System.out.println("Tasks saved to file."); // REMOVE for final version
         } catch (IOException e) {
             System.err.println("Error saving tasks to file: " + e.getMessage());
         }

@@ -1,9 +1,14 @@
-public class Deadline extends Task {
-    protected String deadline;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-    public Deadline(String description, String deadline) {
+public class Deadline extends Task {
+    protected LocalDate dueDate;
+    protected LocalTime dueTime;
+
+    public Deadline(String description, LocalDate dueDate, LocalTime dueTime) {
         super(description);
-        this.deadline = deadline;
+        this.dueDate = dueDate;
+        this.dueTime = dueTime;
     }
 
     /**
@@ -13,25 +18,48 @@ public class Deadline extends Task {
      */
     @Override
     public String getDescription() {
-        return String.format("%s (by: %s)", this.description, this.getDeadline());
+        return String.format("%s (by: %s %s)", this.description, this.getDueDate(), this.getDueTime());
     }
 
     /**
-     * Method to get the deadline of the task.
+     * Gets the due date of the task as a string, nicely formatted to "Monday 9 July 2002".
      * 
      * @return Returns the deadline of the task.
      */
-    public String getDeadline() {
-        return this.deadline;
+    public String getDueDate() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(capitalize(this.dueDate.getDayOfWeek().toString())).append(" ")
+                .append(this.dueDate.getDayOfMonth()).append(" ")
+                .append(capitalize(this.dueDate.getMonth().toString())).append(" ")
+                .append(this.dueDate.getYear());
+        return sb.toString();
     }
 
     /**
-     * Method to set the deadline of the task.
+     * Gets the due time of the task as a string, in the format "HH:MM".
+     * 
+     * @return Returns the deadline of the task.
+     */
+    public String getDueTime() {
+        return this.dueTime.toString();
+    }
+
+    /**
+     * Parses input string "YYYY-MM-DD" into a LocalDate object and sets it as the due date
      * 
      * @param deadline Deadline to be set for the task.
      */
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public void setDueDate(String dueDate) {
+        this.dueDate = LocalDate.parse(dueDate);
+    }
+
+    /**
+     * Parses input string "HH:MM" into a LocalTime object and sets it as the due time
+     * 
+     * @param dueTime Due time to be set for the task.
+     */
+    public void setDueTime(String dueTime) {
+        this.dueTime = LocalTime.parse(dueTime);
     }
 
     /**

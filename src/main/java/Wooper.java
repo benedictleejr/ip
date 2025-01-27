@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Wooper {
     // ASCII art generated at
@@ -29,14 +31,17 @@ public class Wooper {
             Valid Commands:
             1. Add tasks:
                 a. todo <task description>
-                b. deadline <task description> /by <deadline>
-                c. event <task description> /from <start time> /to <end time>
+                b. deadline <task description> /by <due date> <due time>
+                c. event <task description> /from <start date> <start time> /to <end date> <end time>
+                NOTE: Date and time should be in the format YYYY-MM-DD HH:MM
             2. View tasks:
                 a. list
             3. Mark/unmark tasks as done:
                 a. mark <task number>
                 b. unmark <task number>
-            4. Type 'exit' to exit
+            4. Delete tasks:
+                a. delete <task number>
+            5. Type 'exit' to exit
             ____________________________________________________________
             """;
 
@@ -160,7 +165,7 @@ public class Wooper {
                     tasklist.addTask(pw, new ToDo(description));
                 
                 } else if (l.length >= 4 && l[0].equals("deadline")) {
-                    // get the full description & deadline
+                    // get the full description
                     StringBuilder descriptionBuilder = new StringBuilder();
                     int i = 1;
                     while (i < l.length && !l[i].equals("/by")) {
@@ -169,6 +174,7 @@ public class Wooper {
                     }
                     String description = descriptionBuilder.toString().trim();
 
+                    // try to parse the deadline date and time: YYYY-MM-DD HH:MM
                     StringBuilder deadlineBuilder = new StringBuilder();
                     i++; // skip the /by
                     while (i < l.length) {
@@ -176,8 +182,16 @@ public class Wooper {
                         i++;
                     }
                     String deadline = deadlineBuilder.toString().trim();
-
-                    tasklist.addTask(pw, new Deadline(description, deadline));
+                    String[] dueDateTime = deadline.split(" ");
+                    LocalDate dueDate;
+                    LocalTime dueTime;
+                    try {
+                        dueDate = LocalDate.parse(dueDateTime[0]);
+                        dueTime = LocalTime.parse(dueDateTime[1]);
+                        tasklist.addTask(pw, new Deadline(description, dueDate, dueTime));
+                    } catch (Exception e) {
+                        pw.println("\nInvalid date/time format - use YYYY-MM-DD HH:MM\n");
+                    }
 
                 } else if (l.length >= 6 && l[0].equals("event")) {
                     // get the full description & start time & end time
@@ -189,23 +203,39 @@ public class Wooper {
                     }
                     String description = descriptionBuilder.toString().trim();
 
-                    StringBuilder startTimeBuilder = new StringBuilder();
+                    // parse the start/end date and time: YYYY-MM-DD HH:MM
+                    StringBuilder startDateTimeBuilder = new StringBuilder();
                     i++; // skip the /from
                     while (i < l.length && !l[i].equals("/to")) {
-                        startTimeBuilder.append(l[i]).append(" ");
+                        startDateTimeBuilder.append(l[i]).append(" ");
                         i++;
                     }
-                    String startTime = startTimeBuilder.toString().trim();
+                    String[] startDateTime = startDateTimeBuilder.toString().trim().split(" ");
 
-                    StringBuilder endTimeBuilder = new StringBuilder();
+                    StringBuilder endDateTimeBuilder = new StringBuilder();
                     i++; // skip the /to
                     while (i < l.length) {
-                        endTimeBuilder.append(l[i]).append(" ");
+                        endDateTimeBuilder.append(l[i]).append(" ");
                         i++;
                     }
-                    String endTime = endTimeBuilder.toString().trim();
+                    String[] endDateTime = endDateTimeBuilder.toString().trim().split(" ");
 
-                    tasklist.addTask(pw, new Event(description, startTime, endTime));
+                    LocalDate startDate;
+                    LocalTime startTime;
+                    LocalDate endDate;
+                    LocalTime endTime;
+
+                    // then, try to assign and reject if invalid inputs
+                    try {
+                        startDate = LocalDate.parse(startDateTime[0]);
+                        startTime = LocalTime.parse(startDateTime[1]);
+                        endDate = LocalDate.parse(endDateTime[0]);
+                        endTime = LocalTime.parse(endDateTime[1]);
+                        tasklist.addTask(pw, new Event(description, startDate, startTime, endDate, endTime));
+                    } catch (Exception e) {
+                        pw.println("\nInvalid date/time format - use YYYY-MM-DD HH:MM\n");
+                    }
+
                 } else {
                     pw.println("\nInvalid command.\n");
                 }
