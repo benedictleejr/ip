@@ -50,11 +50,13 @@ public class Wooper {
 
     static String promptMessage = "User: ";
 
+    private static final String FILE_PATH = "tasklist.txt";
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
 
-        Tasklist tasklist = new Tasklist();
+        Tasklist tasklist = Tasklist.loadTasks(FILE_PATH);
 
         pw.println("Hello from");
         pw.println(logo);
@@ -67,6 +69,7 @@ public class Wooper {
 
         while (isRunning) {
             if (action.equals("exit")) {
+                tasklist.saveTasks(FILE_PATH);
                 break;
             }
 
@@ -207,6 +210,7 @@ public class Wooper {
                     pw.println("\nInvalid command.\n");
                 }
             }
+            tasklist.saveTasks(FILE_PATH);
 
             pw.flush();
             pw.println(promptMessage);
