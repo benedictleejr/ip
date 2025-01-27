@@ -17,7 +17,7 @@ public class Wooper {
              \\/  \\/ \\___/ \\___/| .__/ \\___|_|  (_)
                                | |
                                |_|
-                """;
+            """;
 
     static String openingMessage = """
             ____________________________________________________________
@@ -74,7 +74,7 @@ public class Wooper {
                 tasklist.printTasklist(pw);                
                 
             } else {
-                // 6 possibilites - 3 tasks, mark, unmark, delete
+                // 6 possibilities - 3 tasks, mark, unmark, delete
                 String[] l = action.split(" ");
 
                 // first, check delete
@@ -127,7 +127,6 @@ public class Wooper {
                         tasklist.getTask(index).mark();
                         String output = String.format("""
                                 ____________________________________________________________
-                                        
                                 Wooper:
                                 Task %d marked as done.
                                 ____________________________________________________________
@@ -138,7 +137,6 @@ public class Wooper {
                         tasklist.getTask(index).unmark();
                         String output = String.format("""
                                 ____________________________________________________________
-                                        
                                 Wooper:
                                 Task %d marked as not done.
                                 ____________________________________________________________
@@ -204,9 +202,6 @@ public class Wooper {
                     }
                     String endTime = endTimeBuilder.toString().trim();
 
-                    System.out.println("Description: " + description);
-                    System.out.println("Start Time: " + startTime);
-                    System.out.println("End Time: " + endTime);
                     tasklist.addTask(pw, new Event(description, startTime, endTime));
                 } else {
                     pw.println("\nInvalid command.\n");
