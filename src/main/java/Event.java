@@ -26,6 +26,10 @@ public class Event extends Task {
                 this.getEndDate(), this.getEndTime());
     }
 
+    public String simpleGetStartDate() {
+        return this.startDate.toString();
+    }
+
     /**
      * Gets the start date of the event as a string, in the format "YYYY-MM-DD".
      * 

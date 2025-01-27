@@ -35,7 +35,8 @@ public class Wooper {
                 c. event <task description> /from <start date> <start time> /to <end date> <end time>
                 NOTE: Date and time should be in the format YYYY-MM-DD HH:MM
             2. View tasks:
-                a. list
+                a. list - views all tasks
+                b. view <date> - views tasks due on a specific date
             3. Mark/unmark tasks as done:
                 a. mark <task number>
                 b. unmark <task number>
@@ -82,7 +83,7 @@ public class Wooper {
                 tasklist.printTasklist(pw);                
                 
             } else {
-                // 6 possibilities - 3 tasks, mark, unmark, delete
+                // 7 possibilities - 3 tasks, mark/unmark, delete, view <date
                 String[] l = action.split(" ");
 
                 // first, check delete
@@ -109,6 +110,10 @@ public class Wooper {
 
                     tasklist.deleteTask(pw, index);
 
+                // then, check view <date>
+                } else if (l.length == 2 && (l[0].equals("view"))) {
+                    tasklist.printTasksOnDate(pw, l[1]);
+                    
                 // then, check mark & unmark
                 } else if (l.length == 2 && (l[0].equals("mark") || l[0].equals("unmark"))) {
                     try {
