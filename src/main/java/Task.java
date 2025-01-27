@@ -42,4 +42,17 @@ public abstract class Task implements Serializable {
     }
 
     abstract public String getTaskType();
+
+    /**
+     * Capitalizes the first letter of a string and makes the rest lowercase.
+     * 
+     * @param str The string to capitalize.
+     * @return The capitalized string.
+     */
+    public String capitalize(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+    }
 }
