@@ -21,6 +21,10 @@ public class Deadline extends Task {
         return String.format("%s (by: %s %s)", this.description, this.getDueDate(), this.getDueTime());
     }
 
+    /**
+     * Returns the due date of the task as a string in the format "YYYY-MM-DD".
+     * @return
+     */
     public String simpleGetDueDate() {
         return this.dueDate.toString();
     }
