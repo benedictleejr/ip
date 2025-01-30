@@ -18,6 +18,11 @@ public class Parser {
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    /**
+     * Reads user input from the console, and casts it to lowercase.
+     * 
+     * @return Returns the user input as a string.
+     */
     public String readUserInput() {
         try {
             return br.readLine().toLowerCase();
@@ -27,10 +32,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the user input is "exit".
+     * 
+     * @param action User input.
+     * @return Returns true if the user input is "exit", false otherwise.
+     */
     public boolean isList(String action) {
         return action.equals("list");
     }
 
+    /**
+     * Parses the user input to determine the command type.
+     * 
+     * @param action User input.
+     * @return Returns the command type.
+     */
     public CommandType parseCommand(String action) {
         if (action.equals("exit")) {
             return CommandType.EXIT;

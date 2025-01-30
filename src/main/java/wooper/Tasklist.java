@@ -1,6 +1,11 @@
 package wooper;
 import java.util.ArrayList;
 
+/**
+ * Tasklist class is responsible for storing and managing tasks.
+ * It stores an arraylist of tasks.
+ * 
+ */
 public class Tasklist {
     protected ArrayList<Task> tasklist;
 
@@ -21,6 +26,12 @@ public class Tasklist {
         return this.tasklist;
     }
 
+    /**
+     * Gets a specific task from the tasklist.
+     * 
+     * @param index index of the task to get
+     * @return the task at the specified index
+     */
     public Task getTask(int index) {
         return this.tasklist.get(index);
     }

@@ -1,4 +1,9 @@
 package wooper;
+
+/**
+ * ToDo class is a subclass of Task, and represents a task that has no specific date or time.
+ * 
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);

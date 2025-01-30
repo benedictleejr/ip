@@ -21,8 +21,10 @@ public class Ui {
         this.br = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    // ASCII art generated at
-    // https://patorjk.com/software/taag/#p=display&f=Doom&t=Wooper!
+    /**
+     * ASCII art of Wooper generated
+     * at https://patorjk.com/software/taag/#p=display&f=Doom&t=Wooper!
+     */
     private static final String logo = """
              _    _                             _
             | |  | |                           | |
@@ -141,6 +143,12 @@ public class Ui {
         pw.println("____________________________________________________________");
     }
 
+    /**
+     * Prints the task added message to the user, once successfully added.
+     * 
+     * @param task task that was added
+     * @param size size of the tasklist
+     */
     public void printTaskAdded(Task task, int size) {
         String output = String.format("""
                 ____________________________________________________________
@@ -155,6 +163,12 @@ public class Ui {
         pw.flush();
     }
 
+    /**
+     * Prints the task deleted message to the user, once successfully deleted.
+     * 
+     * @param task task that was deleted
+     * @param size size of the tasklist
+     */
     public void printTaskDeleted(Task task, int size) {
         String output = String.format("""
                 ____________________________________________________________
@@ -169,6 +183,13 @@ public class Ui {
         pw.flush();
     }
 
+    /**
+     * Prints the task marked message to the user, once successfully marked.
+     * 
+     * @param task task that was marked
+     * @param index index of the task in the tasklist
+     * @param markingTask boolean to indicate if the task is being marked or unmarked
+     */
     public void printTaskMarked(Task task, int index, boolean markingTask) {
         if (markingTask) {
             String output = String.format("""

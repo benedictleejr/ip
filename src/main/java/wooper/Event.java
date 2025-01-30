@@ -2,12 +2,27 @@ package wooper;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Event class is a subclass of Task, and represents an event that has a start date and time,
+ * and an end date and time.
+ * 
+ */
 public class Event extends Task {
     protected LocalDate startDate;
     protected LocalTime startTime;
     protected LocalDate endDate;
     protected LocalTime endTime;
 
+    /**
+     * Constructor for the Event class. Creates an event with the specified description, start date and time,
+     * end date and time.
+     * 
+     * @param description Description of the event.
+     * @param startDate Start date of the event.
+     * @param startTime Start time of the event.
+     * @param endDate End date of the event.
+     * @param endTime End time of the event.
+     */
     public Event(String description, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
         super(description);
         this.startDate = startDate;
