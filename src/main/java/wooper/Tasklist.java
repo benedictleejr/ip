@@ -1,4 +1,5 @@
 package wooper;
+
 import java.util.ArrayList;
 
 /**
@@ -7,14 +8,14 @@ import java.util.ArrayList;
  * 
  */
 public class Tasklist {
-    protected ArrayList<Task> tasklist;
+    protected ArrayList<Task> tasks;
 
     public Tasklist() {
-        this.tasklist = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
-    public Tasklist(ArrayList<Task> tasklist) {
-        this.tasklist = tasklist;
+    public Tasklist(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -22,8 +23,8 @@ public class Tasklist {
      * 
      * @return the tasklist
      */
-    public ArrayList<Task> getTasklist() {
-        return this.tasklist;
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     /**
@@ -33,7 +34,7 @@ public class Tasklist {
      * @return the task at the specified index
      */
     public Task getTask(int index) {
-        return this.tasklist.get(index);
+        return this.tasks.get(index);
     }
 
     /**
@@ -42,8 +43,8 @@ public class Tasklist {
      * @param task task to be added to the tasklist
      */
     public void addTask(Ui ui, Task task) {
-        this.tasklist.add(task);
-        ui.printTaskAdded(task, this.tasklist.size());
+        this.tasks.add(task);
+        ui.printTaskAdded(task, this.tasks.size());
         return;
     }
 
@@ -55,9 +56,9 @@ public class Tasklist {
      */
     public void deleteTask(Ui ui, int index) {
         try {
-            Task task = this.tasklist.get(index);
-            this.tasklist.remove(index);
-            ui.printTaskDeleted(task, this.tasklist.size());
+            Task task = this.tasks.get(index);
+            this.tasks.remove(index);
+            ui.printTaskDeleted(task, this.tasks.size());
             return;
 
         } catch (IndexOutOfBoundsException e) {
@@ -74,7 +75,7 @@ public class Tasklist {
      */
     public ArrayList<Task> getTasksOnDate(String date) {
         ArrayList<Task> tasksOnDate = new ArrayList<>();
-        for (Task t : this.tasklist) {
+        for (Task t : this.tasks) {
             if (t instanceof Deadline) {
                 Deadline d = (Deadline) t;
                 if (d.simpleGetDueDate().equals(date)) {

@@ -1,19 +1,21 @@
 package wooper;
+
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Wooper {
-    private static final String FILE_PATH = "tasklist.txt";
-    private Storage storage;
-    private Tasklist tasklist;
-    private Parser ps;
-    private Ui ui;
+    protected static final String FILE_PATH = "tasklist.txt";
+    protected Storage storage;
+    protected Tasklist tasklist;
+    protected Parser parser;
+    protected Ui ui;
 
     public Wooper() {
         this.storage = new Storage();
         this.tasklist = storage.loadTasks(FILE_PATH);
-        this.ps = new Parser();
+        this.parser = new Parser();
         this.ui = new Ui();
     }
 
@@ -28,17 +30,17 @@ public class Wooper {
         boolean isRunning = true;
         while (isRunning) {
             ui.printPrompt();
-            String action = ps.readUserInput();
+            String action = parser.readUserInput();
             String[] l = action.split(" ");
-            Parser.CommandType command = ps.parseCommand(action);
+            Parser.CommandType command = parser.parseCommand(action);
             switch (command) {
                 case EXIT:
-                    storage.saveTasks(FILE_PATH, tasklist.getTasklist());
+                    storage.saveTasks(FILE_PATH, tasklist.getTasks());
                     isRunning = false;
                     break;
 
                 case LIST:
-                    ui.printTaskList(tasklist.getTasklist());
+                    ui.printTaskList(tasklist.getTasks());
                     break;
                 
                 case DELETE:
@@ -83,7 +85,7 @@ public class Wooper {
                     ui.printMessage("Invalid command.");
                     break;
             }
-            storage.saveTasks(FILE_PATH, tasklist.getTasklist());
+            storage.saveTasks(FILE_PATH, tasklist.getTasks());
         }
         ui.printClosingMessage();
         ui.close();
@@ -133,7 +135,7 @@ public class Wooper {
         int index = Integer.parseInt(l[1]) - 1;
 
         // check that index is valid
-        if (index < 0 || index >= tasklist.getTasklist().size()) {
+        if (index < 0 || index >= tasklist.getTasks().size()) {
             return -1;
         }
         return index;

@@ -1,4 +1,5 @@
 package wooper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +10,7 @@ import java.io.InputStreamReader;
  * 
  */
 public class Parser {
-    private BufferedReader br;
+    protected BufferedReader br;
     public enum CommandType {
         EXIT, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, VIEW, INVALID
     }

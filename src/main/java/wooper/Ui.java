@@ -1,10 +1,12 @@
 package wooper;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 
 /**
@@ -13,8 +15,8 @@ import java.util.ArrayList;
  * 
  */
 public class Ui {
-    private PrintWriter pw;
-    private BufferedReader br;
+    protected PrintWriter pw;
+    protected BufferedReader br;
 
     public Ui() {
         this.pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
