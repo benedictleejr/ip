@@ -55,6 +55,12 @@ public class Tasklist {
         }
     }
 
+    /**
+     * Retrieves all deadlines and events happening on a certain date.
+     * 
+     * @param date date to check for deadlines/events in format "YYYY-MM-DD"
+     * @return ArrayList of tasks happening on the specified date
+     */
     public ArrayList<Task> getTasksOnDate(String date) {
         ArrayList<Task> tasksOnDate = new ArrayList<>();
         for (Task t : this.tasklist) {

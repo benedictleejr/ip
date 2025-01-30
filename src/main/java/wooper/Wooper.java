@@ -17,6 +17,11 @@ public class Wooper {
         this.ui = new Ui();
     }
 
+    /**
+     * Main method to run the Wooper chatbot.
+     * 
+     * @throws IOException
+     */
     public void run() throws IOException {
         ui.printOpeningMessage();
 
@@ -84,6 +89,11 @@ public class Wooper {
         ui.close();
     }
 
+    /**
+     * Handles the deletion of a task.
+     * 
+     * @param l The string array containing the user input.
+     */
     public void handleDelete(String[] l) {
         try {
             int index = Integer.parseInt(l[1]) - 1;
@@ -94,6 +104,11 @@ public class Wooper {
         }
     }
 
+    /**
+     * Handles the viewing of tasks on a specific date.
+     * 
+     * @param l The string array containing the user input.
+     */
     public void handleView(String[] l) {
         if (l.length < 2) {
             ui.printMessage("Please enter a date to view.");
@@ -103,6 +118,12 @@ public class Wooper {
         ui.printTaskList(tasklist.getTasksOnDate(date));
     }
 
+    /**
+     * Given a string array, returns the task number at index 1 if it is valid, else returns -1.
+     * 
+     * @param l The string array to extract the task number from.
+     * @return The task number if valid, else -1.
+     */
     public int getTaskNumber(String[] l) {
         try {
             Integer.parseInt(l[1]);
@@ -118,6 +139,11 @@ public class Wooper {
         return index;
     }
 
+    /**
+     * Handles the creation of a new ToDo task.
+     * 
+     * @param l The string array containing the user input.
+     */
     public void handleTodo(String[] l) {
         StringBuilder descriptionBuilder = new StringBuilder();
         int i = 1;
@@ -129,6 +155,11 @@ public class Wooper {
         tasklist.addTask(ui, new ToDo(description));
     }
 
+    /**
+     * Handles the creation of a new Deadline task.
+     * 
+     * @param l The string array containing the user input.
+     */
     public void handleDeadline(String[] l) {
         // get the full description
         StringBuilder descriptionBuilder = new StringBuilder();
@@ -159,6 +190,11 @@ public class Wooper {
         }
     }
 
+    /**
+     * Handles the creation of a new Event task.
+     * 
+     * @param l The string array containing the user input.
+     */
     public void handleEvent(String[] l) {
         // get the full description & start time & end time
         StringBuilder descriptionBuilder = new StringBuilder();
