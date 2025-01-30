@@ -2,6 +2,11 @@ package wooper;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Deadline class is a subclass of Task, and represents a task that has a deadline.
+ * Deadlines have a due date and time.
+ * 
+ */
 public class Deadline extends Task {
     protected LocalDate dueDate;
     protected LocalTime dueTime;

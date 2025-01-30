@@ -8,6 +8,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * Storage class is responsible for saving and loading tasks from a file.
+ * It also stores an arraylist of tasks, to be kept in sync with the main program.
+ * 
+ */
 public class Storage {
     private ArrayList<Task> tasklist;
 

@@ -1,6 +1,11 @@
 package wooper;
 import java.io.Serializable;
 
+/**
+ * Task class is an abstract class that represents a task.
+ * Tasks have a description and a status (done or not done).
+ * 
+ */
 public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
