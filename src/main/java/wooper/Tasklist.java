@@ -90,4 +90,25 @@ public class Tasklist {
         }
         return tasksOnDate;
     }
+
+    /**
+     * Searchs tasklist for all tasks containing the keyword,
+     * and returns an arraylist of those tasks
+     * 
+     * @param keyword keyword to search for in task descriptions
+     * @return ArrayList of tasks containing the keyword
+     * @throws WooperException if no tasks are found
+     */
+    public ArrayList<Task> findTasks(String keyword) throws WooperException {
+        ArrayList<Task> tasksFound = new ArrayList<>();
+        for (Task t : this.tasklist) {
+            if (t.getDescription().contains(keyword)) {
+                tasksFound.add(t);
+            }
+        }
+        if (tasksFound.isEmpty()) {
+            throw new WooperException("No tasks found.");
+        }
+        return tasksFound;
+    }
 }

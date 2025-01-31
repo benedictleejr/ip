@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 public class Parser {
     protected BufferedReader br;
     public enum CommandType {
-        EXIT, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, VIEW, INVALID
+        EXIT, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, VIEW, INVALID, FIND
     }
 
     public Parser() {
@@ -65,6 +65,10 @@ public class Parser {
 
         if (l.length == 2 && (l[0].equals("view"))) {
             return CommandType.VIEW;
+        }
+
+        if (l.length >= 2 && (l[0].equals("find"))) {
+            return CommandType.FIND;
         }
 
         if (l.length == 2 && (l[0].equals("mark"))) {

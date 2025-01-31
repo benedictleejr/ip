@@ -50,6 +50,10 @@ public class Wooper {
                 case VIEW:
                     handleView(l);
                     break;
+
+                case FIND:
+                    handleFind(l);
+                    break;
                 
                 case MARK:
                 case UNMARK:
@@ -118,6 +122,24 @@ public class Wooper {
         }
         String date = l[1];
         ui.printTaskList(tasklist.getTasksOnDate(date));
+    }
+
+    /**
+     * Handles the searching of tasks based on a keyword.
+     * 
+     * @param l The string array containing the user input.
+     */
+    public void handleFind(String[] l) {
+        if (l.length < 2) {
+            ui.printMessage("Please enter a keyword to search for.");
+            return;
+        }
+        String keyword = String.join(" ", java.util.Arrays.copyOfRange(l, 1, l.length));
+        try {
+            ui.printTaskList(tasklist.findTasks(keyword));
+        } catch (WooperException e) {
+            ui.printMessage(e.getMessage());
+        }
     }
 
     /**
