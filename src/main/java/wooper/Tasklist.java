@@ -101,7 +101,7 @@ public class Tasklist {
      */
     public ArrayList<Task> findTasks(String keyword) throws WooperException {
         ArrayList<Task> tasksFound = new ArrayList<>();
-        for (Task t : this.tasklist) {
+        for (Task t : this.tasks) {
             if (t.getDescription().contains(keyword)) {
                 tasksFound.add(t);
             }
