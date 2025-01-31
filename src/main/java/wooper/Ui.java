@@ -49,6 +49,7 @@ public class Ui {
             2. View tasks:
                 a. list - views all tasks
                 b. view <date> - views tasks due on a specific date
+                c. find <keyword> - finds tasks with a specific keyword
             3. Mark/unmark tasks as done:
                 a. mark <task number>
                 b. unmark <task number>
