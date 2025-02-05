@@ -7,10 +7,13 @@ import java.io.InputStreamReader;
 /**
  * Parser class is responsible for parsing user input,
  * and returning the logic to the main program.
- * 
  */
 public class Parser {
     protected BufferedReader br;
+
+    /**
+     * Enum for the valid command types
+     */
     public enum CommandType {
         EXIT, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, VIEW, INVALID, FIND
     }
@@ -21,7 +24,6 @@ public class Parser {
 
     /**
      * Reads user input from the console, and casts it to lowercase.
-     * 
      * @return Returns the user input as a string.
      */
     public String readUserInput() {
@@ -35,7 +37,6 @@ public class Parser {
 
     /**
      * Checks if the user input is "exit".
-     * 
      * @param action User input.
      * @return Returns true if the user input is "exit", false otherwise.
      */
@@ -45,7 +46,6 @@ public class Parser {
 
     /**
      * Parses the user input to determine the command type.
-     * 
      * @param action User input.
      * @return Returns the command type.
      */
@@ -53,7 +53,7 @@ public class Parser {
         if (action.equals("exit")) {
             return CommandType.EXIT;
         }
-        
+
         if (action.equals("list")) {
             return CommandType.LIST;
         }
