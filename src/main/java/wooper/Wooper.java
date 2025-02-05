@@ -1,10 +1,12 @@
 package wooper;
 
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Main program class for the Wooper chatbot program.
+ */
 public class Wooper {
     protected static final String FILE_PATH = "tasklist.txt";
     protected Storage storage;
@@ -12,6 +14,10 @@ public class Wooper {
     protected Parser parser;
     protected Ui ui;
 
+    /**
+     * Each run of the program will have its own storage object, tasklist object,
+     * as well as parser and ui objects
+     */
     public Wooper() {
         this.storage = new Storage();
         this.tasklist = storage.loadTasks(FILE_PATH);
@@ -21,7 +27,6 @@ public class Wooper {
 
     /**
      * Main method to run the Wooper chatbot.
-     * 
      * @throws IOException
      */
     public void run() throws IOException {
@@ -34,60 +39,52 @@ public class Wooper {
             String[] l = action.split(" ");
             Parser.CommandType command = parser.parseCommand(action);
             switch (command) {
-                case EXIT:
-                    storage.saveTasks(FILE_PATH, tasklist.getTasks());
-                    isRunning = false;
+            case EXIT:
+                storage.saveTasks(FILE_PATH, tasklist.getTasks());
+                isRunning = false;
+                break;
+            case LIST:
+                ui.printTaskList(tasklist.getTasks());
+                break;
+            case DELETE:
+                handleDelete(l);
+                break;
+            case VIEW:
+                handleView(l);
+                break;
+            case FIND:
+                handleFind(l);
+                break;
+            case MARK:
+            case UNMARK:
+                // get task number & verify its validity
+                int taskNumber = getTaskNumber(l);
+                if (taskNumber == -1) {
+                    ui.printMessage("Invalid task number.");
                     break;
+                }
+                Task t = tasklist.getTask(taskNumber);
+                if (command == Parser.CommandType.MARK) {
+                    t.mark();
+                    ui.printTaskMarked(t, taskNumber, true);
+                } else {
+                    t.unmark();
+                    ui.printTaskMarked(t, taskNumber, false);
+                }
+                break;
+            case TODO:
+                handleTodo(l);
+                break;
+            case DEADLINE:
+                handleDeadline(l);
+                break;
+            case EVENT:
+                handleEvent(l);
+                break;
 
-                case LIST:
-                    ui.printTaskList(tasklist.getTasks());
-                    break;
-                
-                case DELETE:
-                    handleDelete(l);
-                    break;
-
-                case VIEW:
-                    handleView(l);
-                    break;
-
-                case FIND:
-                    handleFind(l);
-                    break;
-                
-                case MARK:
-                case UNMARK:
-                    // get task number & verify its validity
-                    int taskNumber = getTaskNumber(l);
-                    if (taskNumber == -1) {
-                        ui.printMessage("Invalid task number.");
-                        break;
-                    }
-                    Task t = tasklist.getTask(taskNumber);
-                    if (command == Parser.CommandType.MARK) {
-                        t.mark();
-                        ui.printTaskMarked(t, taskNumber, true);
-                    } else {
-                        t.unmark();
-                        ui.printTaskMarked(t, taskNumber, false);
-                    }
-                    break;
-
-                case TODO:
-                    handleTodo(l);
-                    break;
-
-                case DEADLINE:
-                    handleDeadline(l);
-                    break;
-                
-                case EVENT:
-                    handleEvent(l);
-                    break;
-
-                default:
-                    ui.printMessage("Invalid command.");
-                    break;
+            default:
+                ui.printMessage("Invalid command.");
+                break;
             }
             storage.saveTasks(FILE_PATH, tasklist.getTasks());
         }
@@ -97,7 +94,6 @@ public class Wooper {
 
     /**
      * Handles the deletion of a task.
-     * 
      * @param l The string array containing the user input.
      */
     public void handleDelete(String[] l) {
@@ -112,7 +108,6 @@ public class Wooper {
 
     /**
      * Handles the viewing of tasks on a specific date.
-     * 
      * @param l The string array containing the user input.
      */
     public void handleView(String[] l) {
@@ -126,7 +121,6 @@ public class Wooper {
 
     /**
      * Handles the searching of tasks based on a keyword.
-     * 
      * @param l The string array containing the user input.
      */
     public void handleFind(String[] l) {
@@ -144,7 +138,6 @@ public class Wooper {
 
     /**
      * Given a string array, returns the task number at index 1 if it is valid, else returns -1.
-     * 
      * @param l The string array to extract the task number from.
      * @return The task number if valid, else -1.
      */
@@ -165,7 +158,6 @@ public class Wooper {
 
     /**
      * Handles the creation of a new ToDo task.
-     * 
      * @param l The string array containing the user input.
      */
     public void handleTodo(String[] l) {
@@ -181,7 +173,6 @@ public class Wooper {
 
     /**
      * Handles the creation of a new Deadline task.
-     * 
      * @param l The string array containing the user input.
      */
     public void handleDeadline(String[] l) {
@@ -216,7 +207,6 @@ public class Wooper {
 
     /**
      * Handles the creation of a new Event task.
-     * 
      * @param l The string array containing the user input.
      */
     public void handleEvent(String[] l) {
@@ -265,6 +255,6 @@ public class Wooper {
 
     public static void main(String[] args) throws IOException {
         Wooper wooper = new Wooper();
-        wooper.run();                
+        wooper.run();
     }
 }

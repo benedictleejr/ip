@@ -6,23 +6,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-
 import java.util.ArrayList;
 
 /**
  * Ui class is responsible for handling the user interface of the application.
  * The class contains methods to print messages to the user.
- * 
  */
 public class Ui {
-    protected PrintWriter pw;
-    protected BufferedReader br;
-
-    public Ui() {
-        this.pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
-        this.br = new BufferedReader(new InputStreamReader(System.in));
-    }
-
     /**
      * ASCII art of Wooper generated
      * at https://patorjk.com/software/taag/#p=display&f=Doom&t=Wooper!
@@ -71,7 +61,17 @@ public class Ui {
             """;
 
     private static final String promptMessage = "User: ";
+    protected PrintWriter pw;
+    protected BufferedReader br;
 
+    /**
+     * Every Ui will contain a printwriter to print to the terminal,
+     * and a BufferedReader to read user inputs
+     */
+    public Ui() {
+        this.pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
+        this.br = new BufferedReader(new InputStreamReader(System.in));
+    }
 
     /**
      * Prints the opening messages to the user.
@@ -83,6 +83,9 @@ public class Ui {
         pw.flush();
     }
 
+    /**
+     * Prints the prompting message to the user
+     */
     public void printPrompt() {
         pw.println(promptMessage);
         pw.flush();
@@ -121,7 +124,6 @@ public class Ui {
 
     /**
      * Prints all tasks in the lists with beautiful formatting
-     * 
      * @param tasklist list of tasks to be printed
      */
     public void printTaskList(ArrayList<Task> tasklist) {
@@ -148,7 +150,6 @@ public class Ui {
 
     /**
      * Prints the task added message to the user, once successfully added.
-     * 
      * @param task task that was added
      * @param size size of the tasklist
      */
@@ -168,7 +169,6 @@ public class Ui {
 
     /**
      * Prints the task deleted message to the user, once successfully deleted.
-     * 
      * @param task task that was deleted
      * @param size size of the tasklist
      */
@@ -188,7 +188,6 @@ public class Ui {
 
     /**
      * Prints the task marked message to the user, once successfully marked.
-     * 
      * @param task task that was marked
      * @param index index of the task in the tasklist
      * @param markingTask boolean to indicate if the task is being marked or unmarked
@@ -216,11 +215,8 @@ public class Ui {
     }
 
     /**
-     * Gets all deadlines due/events happening on a certain date, and prints them to
-     * the user.
-     * 
-     * @param pw   printwriter to print the message to the user
-     * @param date date to check for deadlines/events in format "YYYY-MM-DD"
+     * Given a list of tasks from a particular date, print them nicely
+     * @param tasksOnDate list of tasks from particular date
      */
     public void printTasksOnDate(ArrayList<Task> tasksOnDate) {
         if (tasksOnDate.size() == 0) {
