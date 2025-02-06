@@ -22,8 +22,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(400);
+            stage.setMinWidth(600);
             fxmlLoader.<MainWindow>getController().setWooper(wooper); // inject the Wooper instance
             stage.show();
         } catch (IOException e) {

@@ -40,7 +40,6 @@ public class DialogBox extends HBox {
             5. Type 'exit' to exit
             """;
 
-    private static final String CLOSING_MESSAGE = "Bye bye, see you soon!";
     @FXML
     private Label dialog;
     @FXML
