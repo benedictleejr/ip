@@ -18,6 +18,29 @@ import javafx.scene.layout.HBox;
  * face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final String OPENING_MESSAGE = """
+            Hello! I'm Wooper, your personal tasklist chatbot.
+            How can I help you today?
+
+            Valid Commands:
+            1. Add tasks:
+                a. todo <task description>
+                b. deadline <task description> /by <due date> <due time>
+                c. event <task description> /from <start date> <start time> /to <end date> <end time>
+                NOTE: Date and time should be in the format YYYY-MM-DD HH:MM
+            2. View tasks:
+                a. list - views all tasks
+                b. view <date> - views tasks due on a specific date
+                c. find <keyword> - finds tasks with a specific keyword
+            3. Mark/unmark tasks as done:
+                a. mark <task number>
+                b. unmark <task number>
+            4. Delete tasks:
+                a. delete <task number>
+            5. Type 'exit' to exit
+            """;
+
+    private static final String CLOSING_MESSAGE = "Bye bye, see you soon!";
     @FXML
     private Label dialog;
     @FXML
@@ -47,6 +70,12 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
         dialog.getStyleClass().add("reply-label");
+    }
+
+    public static DialogBox getOpeningMessage(Image img) {
+        var db = new DialogBox(OPENING_MESSAGE, img);
+        db.flip();
+        return db;
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

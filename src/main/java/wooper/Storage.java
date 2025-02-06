@@ -7,20 +7,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.util.ArrayList;
 
 /**
- * Storage class is responsible for saving and loading tasks from a file.
+ * Responsible for saving and loading tasks from a file.
  * It also stores an arraylist of tasks, to be kept in sync with the main program.
- * 
  */
 public class Storage {
     protected ArrayList<Task> tasks;
 
     /**
      * Saves all current tasks to a file, for persistent memory.
-     * 
      * @param filePath
      */
     public void saveTasks(String filePath, ArrayList<Task> tasklist) {
@@ -32,9 +29,8 @@ public class Storage {
         }
     }
 
-        /**
+    /**
      * Loads tasks from a file.
-     * 
      * @param filePath path to the file to load tasks from
      * @return a Tasklist object containing the tasks loaded from the file
      */
@@ -57,7 +53,6 @@ public class Storage {
 
         } catch (IOException e) {
             System.err.println("Error reading tasks from file: " + e.getMessage());
-            
         }
         return tasklist.isEmpty() ? new Tasklist() : new Tasklist(tasklist);
     }

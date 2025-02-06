@@ -5,7 +5,6 @@ import java.util.ArrayList;
 /**
  * Tasklist class is responsible for storing and managing tasks.
  * It stores an arraylist of tasks.
- * 
  */
 public class Tasklist {
     protected ArrayList<Task> tasks;
@@ -20,16 +19,14 @@ public class Tasklist {
 
     /**
      * Returns the tasklist.
-     * 
      * @return the tasklist
      */
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getAllTasks() {
         return this.tasks;
     }
 
     /**
      * Gets a specific task from the tasklist.
-     * 
      * @param index index of the task to get
      * @return the task at the specified index
      */
@@ -38,38 +35,24 @@ public class Tasklist {
     }
 
     /**
-     * Adds a task to the tasklist and prints a message to the user.
-     * 
+     * Adds a task to the tasklist.
      * @param task task to be added to the tasklist
      */
-    public void addTask(Ui ui, Task task) {
+    public void addTask(Task task) {
         this.tasks.add(task);
-        ui.printTaskAdded(task, this.tasks.size());
         return;
     }
 
     /**
-     * Deletes a task from the tasklist and prints a message to the user.
-     * 
-     * @param pw printwriter to print the message to the user
+     * Deletes a task from the tasklist
      * @param index index of the task to be deleted
      */
-    public void deleteTask(Ui ui, int index) {
-        try {
-            Task task = this.tasks.get(index);
-            this.tasks.remove(index);
-            ui.printTaskDeleted(task, this.tasks.size());
-            return;
-
-        } catch (IndexOutOfBoundsException e) {
-            ui.printMessage("Invalid task number.");
-            return;
-        }
+    public void deleteTask(int index) throws IndexOutOfBoundsException {
+        this.tasks.remove(index);
     }
 
     /**
      * Retrieves all deadlines and events happening on a certain date.
-     * 
      * @param date date to check for deadlines/events in format "YYYY-MM-DD"
      * @return ArrayList of tasks happening on the specified date
      */
@@ -94,7 +77,6 @@ public class Tasklist {
     /**
      * Searchs tasklist for all tasks containing the keyword,
      * and returns an arraylist of those tasks
-     * 
      * @param keyword keyword to search for in task descriptions
      * @return ArrayList of tasks containing the keyword
      * @throws WooperException if no tasks are found

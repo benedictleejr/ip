@@ -6,7 +6,6 @@ import java.time.LocalTime;
 /**
  * Event class is a subclass of Task, and represents an event that has a start date and time,
  * and an end date and time.
- * 
  */
 public class Event extends Task {
     protected LocalDate startDate;
@@ -17,7 +16,6 @@ public class Event extends Task {
     /**
      * Constructor for the Event class. Creates an event with the specified description, start date and time,
      * end date and time.
-     * 
      * @param description Description of the event.
      * @param startDate Start date of the event.
      * @param startTime Start time of the event.
@@ -34,7 +32,6 @@ public class Event extends Task {
 
     /**
      * Method to get the description of the task.
-     * 
      * @return Returns the description of the task.
      */
     @Override
@@ -49,7 +46,6 @@ public class Event extends Task {
 
     /**
      * Gets the start date of the event as a string, in the format "YYYY-MM-DD".
-     * 
      * @return Returns the start date of the event.
      */
     public String getStartDate() {
@@ -63,7 +59,6 @@ public class Event extends Task {
 
     /**
      * Gets the start time of the event as a string, in the format "HH:MM".
-     * 
      * @return Returns the start time of the event.
      */
     public String getStartTime() {
@@ -72,7 +67,6 @@ public class Event extends Task {
 
     /**
      * Gets the end date of the event as a string, in the format "YYYY-MM-DD".
-     * 
      * @return Returns the end date of the event.
      */
     public String getEndDate() {
@@ -86,7 +80,6 @@ public class Event extends Task {
 
     /**
      * Gets the end time of the event as a string, in the format "HH:MM".
-     * 
      * @return Returns the end time of the event.
      */
     public String getEndTime() {
@@ -95,7 +88,6 @@ public class Event extends Task {
 
     /**
      * Method to set the start date of the event.
-     * 
      * @param startDate Start date to be set for the event.
      */
     public void setStartDate(String startDate) {
@@ -104,7 +96,6 @@ public class Event extends Task {
 
     /**
      * Method to set the start time of the event.
-     * 
      * @param startTime Start time to be set for the event.
      */
     public void setStartTime(String startTime) {
@@ -113,7 +104,6 @@ public class Event extends Task {
 
     /**
      * Method to set the end date of the event.
-     * 
      * @param endDate End date to be set for the event.
      */
     public void setEndDate(String endDate) {
@@ -122,7 +112,6 @@ public class Event extends Task {
 
     /**
      * Method to set the end time of the event.
-     * 
      * @param endTime End time to be set for the event.
      */
     public void setEndTime(String endTime) {
@@ -131,7 +120,6 @@ public class Event extends Task {
 
     /**
      * Method to get the type of the task.
-     * 
      * @return Returns the type of the task.
      */
     @Override

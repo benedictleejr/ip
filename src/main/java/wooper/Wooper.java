@@ -1,8 +1,8 @@
 package wooper;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  * Main program class for the Wooper chatbot program.
@@ -10,9 +10,8 @@ import java.time.LocalTime;
 public class Wooper {
     protected static final String FILE_PATH = "tasklist.txt";
     protected Storage storage;
-    protected Tasklist tasklist;
+    protected Tasklist tasks;
     protected Parser parser;
-    protected Ui ui;
 
     /**
      * Each run of the program will have its own storage object, tasklist object,
@@ -20,154 +19,171 @@ public class Wooper {
      */
     public Wooper() {
         this.storage = new Storage();
-        this.tasklist = storage.loadTasks(FILE_PATH);
+        this.tasks = storage.loadTasks(FILE_PATH);
         this.parser = new Parser();
-        this.ui = new Ui();
     }
 
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
+        StringBuilder response = new StringBuilder();
+        String[] l = input.split(" ");
+        Parser.CommandType command = parser.parseCommand(input);
 
-    /**
-     * Main method to run the Wooper chatbot.
-     * @throws IOException
-     */
-    public void run() throws IOException {
-        ui.printOpeningMessage();
-
-        boolean isRunning = true;
-        while (isRunning) {
-            ui.printPrompt();
-            String action = parser.readUserInput();
-            String[] l = action.split(" ");
-            Parser.CommandType command = parser.parseCommand(action);
-            switch (command) {
-            case EXIT:
-                storage.saveTasks(FILE_PATH, tasklist.getTasks());
-                isRunning = false;
-                break;
-            case LIST:
-                ui.printTaskList(tasklist.getTasks());
-                break;
-            case DELETE:
-                handleDelete(l);
-                break;
-            case VIEW:
-                handleView(l);
-                break;
-            case FIND:
-                handleFind(l);
-                break;
-            case MARK:
-            case UNMARK:
-                // get task number & verify its validity
-                int taskNumber = getTaskNumber(l);
-                if (taskNumber == -1) {
-                    ui.printMessage("Invalid task number.");
-                    break;
-                }
-                Task t = tasklist.getTask(taskNumber);
-                if (command == Parser.CommandType.MARK) {
-                    t.mark();
-                    ui.printTaskMarked(t, taskNumber, true);
-                } else {
-                    t.unmark();
-                    ui.printTaskMarked(t, taskNumber, false);
-                }
-                break;
-            case TODO:
-                handleTodo(l);
-                break;
-            case DEADLINE:
-                handleDeadline(l);
-                break;
-            case EVENT:
-                handleEvent(l);
-                break;
-
-            default:
-                ui.printMessage("Invalid command.");
-                break;
-            }
-            storage.saveTasks(FILE_PATH, tasklist.getTasks());
+        switch (command) {
+        case EXIT:
+            storage.saveTasks(FILE_PATH, tasks.getAllTasks());
+            response.append("Goodbye! See you next time.");
+            break;
+        case LIST:
+            response.append(handleList());
+            break;
+        case DELETE:
+            response.append(handleDelete(l));
+            break;
+        case VIEW:
+            response.append(handleView(l));
+            break;
+        case FIND:
+            response.append(handleFind(l));
+            break;
+        case MARK:
+        case UNMARK:
+            response.append(handleMarking(command, l));
+            break;
+        case TODO:
+            response.append(handleTodo(l));
+            break;
+        case DEADLINE:
+            response.append(handleDeadline(l));
+            break;
+        case EVENT:
+            response.append(handleEvent(l));
+            break;
+        default:
+            response.append("Invalid command.");
+            break;
         }
-        ui.printClosingMessage();
-        ui.close();
+        storage.saveTasks(FILE_PATH, tasks.getAllTasks());
+        return response.toString();
     }
 
     /**
-     * Handles the deletion of a task.
-     * @param l The string array containing the user input.
+     * Retrieves list of all tasks and formats for output
+     * @return formatted list of all tasks
      */
-    public void handleDelete(String[] l) {
+    public String handleList() {
+        ArrayList<Task> allTasks = tasks.getAllTasks();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < allTasks.size(); i++) {
+            Task t = allTasks.get(i);
+            sb.append(String.format("%d.[%s][%s] %s\n", i + 1, t.getTaskType(), t.getStatusIcon(), t.getDescription()));
+        }
+        return sb.toString().trim();
+    }
+
+    /**
+     * Given user input, handles deletion of a task. If successful, returns success
+     * message
+     * Else, returns Invalid message
+     * @param l The string array containing the user input
+     * @return Success or invalid message
+     */
+    public String handleDelete(String[] l) {
         try {
             int index = Integer.parseInt(l[1]) - 1;
-            tasklist.deleteTask(ui, index);
+            Task deletedTask = tasks.getTask((index));
+            tasks.deleteTask(index);
+            return String.format("""
+                    Task removed: %s
+                    Now you have %d tasks in the list.
+                    """, deletedTask.getDescription(), tasks.getAllTasks().size());
 
-        } catch (NumberFormatException e) {
-            ui.printMessage("Invalid task number.");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Invalid task number.";
         }
     }
 
     /**
      * Handles the viewing of tasks on a specific date.
      * @param l The string array containing the user input.
+     * @return Formatted String of tasks on specified date
      */
-    public void handleView(String[] l) {
-        if (l.length < 2) {
-            ui.printMessage("Please enter a date to view.");
-            return;
+    public String handleView(String[] l) {
+        if (l.length < 2) { // Invalid input, prompt user
+            return "Please enter a date to view";
         }
         String date = l[1];
-        ui.printTaskList(tasklist.getTasksOnDate(date));
+        ArrayList<Task> tasksOnDate = tasks.getTasksOnDate(date);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasksOnDate.size(); i++) {
+            Task t = tasksOnDate.get(i);
+            sb.append(String.format("%d.[%s][%s] %s\n", i + 1, t.getTaskType(), t.getStatusIcon(), t.getDescription()));
+        }
+        return sb.toString().trim();
     }
 
     /**
-     * Handles the searching of tasks based on a keyword.
+     * Handles searching for a task based on keyword
      * @param l The string array containing the user input.
+     * @return Formatted String of tasks matching keyword
      */
-    public void handleFind(String[] l) {
+    public String handleFind(String[] l) {
         if (l.length < 2) {
-            ui.printMessage("Please enter a keyword to search for.");
-            return;
+            return "Please enter a keyword to search for.";
         }
         String keyword = String.join(" ", java.util.Arrays.copyOfRange(l, 1, l.length));
         try {
-            ui.printTaskList(tasklist.findTasks(keyword));
-        } catch (WooperException e) {
-            ui.printMessage(e.getMessage());
+            ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task t = matchingTasks.get(i);
+                sb.append(String.format("%d.[%s][%s] %s\n", i + 1, t.getTaskType(), t.getStatusIcon(),
+                        t.getDescription()));
+            }
+            return sb.toString().trim();
+        } catch (WooperException e) { // thrown when no tasks found in tasks.findTasks(keyword)
+            return e.getMessage();
         }
     }
 
     /**
-     * Given a string array, returns the task number at index 1 if it is valid, else returns -1.
-     * @param l The string array to extract the task number from.
-     * @return The task number if valid, else -1.
+     * Handles marking a task as done/not done
+     * @param command Command type MARK or UNMARK
+     * @param l The string array containing the user input.
+     * @return Success message or error message.
      */
-    public int getTaskNumber(String[] l) {
+    public String handleMarking(Parser.CommandType command, String[] l) {
+        // first, test if given input is valid. Then, get task number
         try {
             Integer.parseInt(l[1]);
         } catch (NumberFormatException e) {
-            return -1;
+            return "Invalid task number: Not a number!";
         }
-        int index = Integer.parseInt(l[1]) - 1;
+        int taskNumber = Integer.parseInt(l[1]) - 1;
 
-        // check that index is valid
-        if (index < 0 || index >= tasklist.getTasks().size()) {
-            return -1;
+        // check that taskNumber is valid
+        if (taskNumber < 0 || taskNumber >= tasks.getAllTasks().size()) {
+            return "Invalid task number: Index out of bounds!";
         }
-        return index;
+
+        // now, get task and mark/unmark
+        Task t = tasks.getTask(taskNumber);
+        if (command == Parser.CommandType.MARK) {
+            t.mark();
+            return String.format("Task %d marked as done.", taskNumber + 1);
+        } else {
+            t.unmark();
+            return String.format("Task %d marked as not done.", taskNumber + 1);
+        }
     }
 
     /**
      * Handles the creation of a new ToDo task.
      * @param l The string array containing the user input.
      */
-    public void handleTodo(String[] l) {
+    public String handleTodo(String[] l) {
         StringBuilder descriptionBuilder = new StringBuilder();
         int i = 1;
         while (i < l.length && !l[i].equals("/by")) {
@@ -175,14 +191,21 @@ public class Wooper {
             i++;
         }
         String description = descriptionBuilder.toString().trim();
-        tasklist.addTask(ui, new ToDo(description));
+        ToDo newTask = new ToDo(description);
+
+        tasks.addTask(newTask);
+        return String.format("""
+                Woop Woop! I've added this task:
+                    [%s][ ] %s
+                Now you have %d tasks in the list.
+                """, newTask.getTaskType(), newTask.getDescription(), tasks.getAllTasks().size());
     }
 
     /**
      * Handles the creation of a new Deadline task.
      * @param l The string array containing the user input.
      */
-    public void handleDeadline(String[] l) {
+    public String handleDeadline(String[] l) {
         // get the full description
         StringBuilder descriptionBuilder = new StringBuilder();
         int i = 1;
@@ -206,9 +229,16 @@ public class Wooper {
         try {
             dueDate = LocalDate.parse(dueDateTime[0]);
             dueTime = LocalTime.parse(dueDateTime[1]);
-            tasklist.addTask(ui, new Deadline(description, dueDate, dueTime));
+            Deadline newTask = new Deadline(description, dueDate, dueTime);
+            tasks.addTask(newTask);
+            return String.format("""
+                    Woop Woop! I've added this task:
+                        [%s][ ] %s
+                    Now you have %d tasks in the list.
+                    """, newTask.getTaskType(), newTask.getDescription(), tasks.getAllTasks().size());
+
         } catch (Exception e) {
-            ui.printMessage("Invalid date/time format - use YYYY-MM-DD HH:MM");
+            return "Invalid date/time format - use YYYY-MM-DD HH:MM";
         }
     }
 
@@ -216,7 +246,7 @@ public class Wooper {
      * Handles the creation of a new Event task.
      * @param l The string array containing the user input.
      */
-    public void handleEvent(String[] l) {
+    public String handleEvent(String[] l) {
         // get the full description & start time & end time
         StringBuilder descriptionBuilder = new StringBuilder();
         int i = 1;
@@ -254,14 +284,17 @@ public class Wooper {
             startTime = LocalTime.parse(startDateTime[1]);
             endDate = LocalDate.parse(endDateTime[0]);
             endTime = LocalTime.parse(endDateTime[1]);
-            tasklist.addTask(ui, new Event(description, startDate, startTime, endDate, endTime));
+            Event newTask = new Event(description, startDate, startTime, endDate, endTime);
+            tasks.addTask(newTask);
+            return String.format("""
+                    Woop Woop! I've added this task:
+                        [%s][ ] %s
+                    Now you have %d tasks in the list.
+                    """, newTask.getTaskType(), newTask.getDescription(), tasks.getAllTasks().size());
+
         } catch (Exception e) {
-            ui.printMessage("Invalid date/time format - use YYYY-MM-DD HH:MM");
+            return "Invalid date/time format - use YYYY-MM-DD HH:MM";
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        Wooper wooper = new Wooper();
-        wooper.run();
-    }
 }

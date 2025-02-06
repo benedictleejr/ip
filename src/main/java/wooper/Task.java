@@ -5,12 +5,15 @@ import java.io.Serializable;
 /**
  * Task class is an abstract class that represents a task.
  * Tasks have a description and a status (done or not done).
- * 
  */
 public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * All tasks have a description, and an isDone status
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -18,7 +21,6 @@ public abstract class Task implements Serializable {
 
     /**
      * Method to get the status icon of the task.
-     * 
      * @return Returns the status icon of the task - "X" if done, " " if not done.
      */
     public String getStatusIcon() {
@@ -27,7 +29,6 @@ public abstract class Task implements Serializable {
 
     /**
      * Method to get the description of the task.
-     * 
      * @return Returns the description of the task.
      */
     public String getDescription() {
@@ -48,11 +49,10 @@ public abstract class Task implements Serializable {
         this.isDone = false;
     }
 
-    abstract public String getTaskType();
+    public abstract String getTaskType();
 
     /**
      * Capitalizes the first letter of a string and makes the rest lowercase.
-     * 
      * @param str The string to capitalize.
      * @return The capitalized string.
      */
