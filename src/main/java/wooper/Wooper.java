@@ -176,9 +176,11 @@ public class Wooper {
         if (command == Parser.CommandType.MARK) {
             t.mark();
             return String.format("Task %d marked as done.", taskNumber + 1);
-        } else {
+        } else if (command == Parser.CommandType.UNMARK) {
             t.unmark();
             return String.format("Task %d marked as not done.", taskNumber + 1);
+        } else {
+            return "Invalid task type for marking/unmarking!";
         }
     }
 

@@ -49,6 +49,10 @@ public abstract class Task implements Serializable {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string of the type of task invoking this method.
+     * @return String in the format of "t", where t is the first letter of the task type
+     */
     public abstract String getTaskType();
 
     /**
