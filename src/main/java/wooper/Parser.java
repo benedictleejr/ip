@@ -1,7 +1,6 @@
 package wooper;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -20,28 +19,6 @@ public class Parser {
 
     public Parser() {
         this.br = new BufferedReader(new InputStreamReader(System.in));
-    }
-
-    /**
-     * Reads user input from the console, and casts it to lowercase.
-     * @return Returns the user input as a string.
-     */
-    public String readUserInput() {
-        try {
-            return br.readLine().toLowerCase();
-        } catch (IOException e) {
-            System.err.println("Error reading user input: " + e.getMessage());
-            return "";
-        }
-    }
-
-    /**
-     * Checks if the user input is "exit".
-     * @param action User input.
-     * @return Returns true if the user input is "exit", false otherwise.
-     */
-    public boolean isList(String action) {
-        return action.equals("list");
     }
 
     /**
