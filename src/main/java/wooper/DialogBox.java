@@ -71,16 +71,33 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Gets the opening message for wooper program and formats it nicely to be displayed
+     * @param img image to be displayed as wooper bot
+     * @return DialogBox to be appended to display
+     */
     public static DialogBox getOpeningMessage(Image img) {
         var db = new DialogBox(OPENING_MESSAGE, img);
         db.flip();
         return db;
     }
 
+    /**
+     * Converts user text and image into dialogbox to be displayed
+     * @param text text input from user
+     * @param img user's image
+     * @return DialogBox to be displayed
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Converts output from program into dialogbox to be displayed
+     * @param text output text from program
+     * @param img wooper bot's image
+     * @return DialogBox to be displayed
+     */
     public static DialogBox getWooperDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

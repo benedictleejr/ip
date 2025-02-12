@@ -40,7 +40,7 @@ public class Storage {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             tasklist = (ArrayList<Task>) ois.readObject();
 
-        } catch (FileNotFoundException e) { // if file not found, then create the new file
+        } catch (FileNotFoundException e) { // if no existing storage file, then create a new storage file
             File file = new File(filePath);
             try {
                 file.createNewFile();
