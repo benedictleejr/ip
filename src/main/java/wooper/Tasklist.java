@@ -1,6 +1,8 @@
 package wooper;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Tasklist class is responsible for storing and managing tasks.
@@ -56,22 +58,11 @@ public class Tasklist {
      * @param date date to check for deadlines/events in format "YYYY-MM-DD"
      * @return ArrayList of tasks happening on the specified date
      */
-    public ArrayList<Task> getTasksOnDate(String date) {
-        ArrayList<Task> tasksOnDate = new ArrayList<>();
-        for (Task t : this.tasks) {
-            if (t instanceof Deadline) {
-                Deadline d = (Deadline) t;
-                if (d.simpleGetDueDate().equals(date)) {
-                    tasksOnDate.add(d);
-                }
-            } else if (t instanceof Event) {
-                Event e = (Event) t;
-                if (e.simpleGetStartDate().equals(date)) {
-                    tasksOnDate.add(e);
-                }
-            }
-        }
-        return tasksOnDate;
+    public List<Task> getTasksOnDate(String date) {
+        return this.tasks.stream()
+                .filter(t -> (t instanceof Deadline && ((Deadline) t).simpleGetDueDate().equals(date))
+                    || (t instanceof Event && ((Event) t).simpleGetStartDate().equals(date)))
+                .collect(Collectors.toList());
     }
 
     /**

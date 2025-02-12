@@ -3,6 +3,7 @@ package wooper;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main program class for the Wooper chatbot program.
@@ -117,7 +118,7 @@ public class Wooper {
             return "Please enter a date to view";
         }
         String date = l[1];
-        ArrayList<Task> tasksOnDate = tasks.getTasksOnDate(date);
+        List<Task> tasksOnDate = tasks.getTasksOnDate(date);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasksOnDate.size(); i++) {
             Task t = tasksOnDate.get(i);
