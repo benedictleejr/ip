@@ -30,6 +30,7 @@ public class Wooper {
         StringBuilder response = new StringBuilder();
         String[] l = input.split(" ");
         Parser.CommandType command = parser.parseCommand(input);
+        assert command instanceof Parser.CommandType : "Command variable is not of type Parser.CommandType";
 
         switch (command) {
         case EXIT:
@@ -93,6 +94,7 @@ public class Wooper {
     public String handleDelete(String[] l) {
         try {
             int index = Integer.parseInt(l[1]) - 1;
+            assert index > 0 && index < tasks.getAllTasks().size() : "Index is out of bounds!";
             Task deletedTask = tasks.getTask((index));
             tasks.deleteTask(index);
             return String.format("""
@@ -170,6 +172,7 @@ public class Wooper {
 
         // now, get task and mark/unmark
         Task t = tasks.getTask(taskNumber);
+        assert t instanceof Task : "t is not a task!";
         if (command == Parser.CommandType.MARK) {
             t.mark();
             return String.format("Task %d marked as done.", taskNumber + 1);
