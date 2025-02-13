@@ -56,6 +56,6 @@ shadowJar {
     archiveFileName = "wooper.jar"
 }
 
-run{
+run {
     standardInput = System.in
 }

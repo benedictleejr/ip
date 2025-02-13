@@ -19,25 +19,34 @@ import javafx.scene.layout.HBox;
  */
 public class DialogBox extends HBox {
     private static final String OPENING_MESSAGE = """
-            Hello! I'm Wooper, your personal tasklist chatbot.
+            Hello! I'm Wooper, your personal chatbot. I can handle tasks and notes!
             How can I help you today?
 
             Valid Commands:
-            1. Add tasks:
+            1. View tasks/notes:
+                a. list tasks - views all tasks
+                b. list notes - views all notes
+                c. view <date> - views tasks due on a specific date
+                d. find <keyword> - finds tasks with a specific keyword
+
+            2. Add tasks:
                 a. todo <task description>
                 b. deadline <task description> /by <due date> <due time>
                 c. event <task description> /from <start date> <start time> /to <end date> <end time>
                 NOTE: Date and time should be in the format YYYY-MM-DD HH:MM
-            2. View tasks:
-                a. list - views all tasks
-                b. view <date> - views tasks due on a specific date
-                c. find <keyword> - finds tasks with a specific keyword
-            3. Mark/unmark tasks as done:
+
+            3. Add notes:
+                a. note <title> /content <content>
+
+            4. Mark/unmark tasks as done:
                 a. mark <task number>
                 b. unmark <task number>
-            4. Delete tasks:
-                a. delete <task number>
-            5. Type 'exit' to exit
+
+            5. Delete tasks/notes:
+                a. deltask <task number>
+                b. delnote <note number>
+
+            6. Type 'exit' to exit
             """;
 
     @FXML

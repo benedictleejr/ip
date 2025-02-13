@@ -14,7 +14,8 @@ public class Parser {
      * Enum for the valid command types
      */
     public enum CommandType {
-        EXIT, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, VIEW, INVALID, FIND
+        EXIT, LISTTASKS, LISTNOTES, TODO, DEADLINE, EVENT, NOTE, MARK, UNMARK,
+            DELTASK, DELNOTE, VIEW, FIND, INVALID
     }
 
     public Parser() {
@@ -31,21 +32,25 @@ public class Parser {
             return CommandType.EXIT;
         }
 
-        if (action.equals("list")) {
-            return CommandType.LIST;
+        if (action.equals("list tasks")) {
+            return CommandType.LISTTASKS;
+        }
+
+        if (action.equals("list notes")) {
+            return CommandType.LISTNOTES;
         }
 
         String[] l = action.split(" ");
-        if (l.length == 2 && (l[0].equals("delete"))) {
-            return CommandType.DELETE;
+        if (l.length == 2 && (l[0].equals("deltask"))) {
+            return CommandType.DELTASK;
+        }
+
+        if (l.length == 2 && (l[0].equals("delnote"))) {
+            return CommandType.DELNOTE;
         }
 
         if (l.length == 2 && (l[0].equals("view"))) {
             return CommandType.VIEW;
-        }
-
-        if (l.length >= 2 && (l[0].equals("find"))) {
-            return CommandType.FIND;
         }
 
         if (l.length == 2 && (l[0].equals("mark"))) {
@@ -54,6 +59,14 @@ public class Parser {
 
         if (l.length == 2 && (l[0].equals("unmark"))) {
             return CommandType.UNMARK;
+        }
+
+        if (l.length >= 2 && (l[0].equals("find"))) {
+            return CommandType.FIND;
+        }
+
+        if (l.length >= 2 && (l[0].equals("note"))) {
+            return CommandType.NOTE;
         }
 
         if (l.length >= 2 && (l[0].equals("todo"))) {

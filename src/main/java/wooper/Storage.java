@@ -15,15 +15,29 @@ import java.util.ArrayList;
  */
 public class Storage {
     protected ArrayList<Task> tasks;
+    protected ArrayList<Note> notes;
 
     /**
      * Saves all current tasks to a file, for persistent memory.
-     * @param filePath
+     * @param filePath path to tasklist text file
      */
-    public void saveTasks(String filePath, ArrayList<Task> tasklist) {
-        this.tasks = tasklist;
+    public void saveTasks(String filePath, ArrayList<Task> tasks) {
+        this.tasks = tasks;
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(this.tasks);
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves all current notes  to a file, for persistent memory.
+     * @param filePath path to notebook text file
+     */
+    public void saveNotes(String filePath, ArrayList<Note> notes) {
+        this.notes = notes;
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(this.notes);
         } catch (IOException e) {
             System.err.println("Error saving tasks to file: " + e.getMessage());
         }
@@ -57,4 +71,31 @@ public class Storage {
         return tasklist.isEmpty() ? new Tasklist() : new Tasklist(tasklist);
     }
 
+    /**
+     * Loads notes from a file.
+     * @param filePath path to the file to load tasks from
+     * @return a Notebook object containing the notes loaded from the file
+     */
+    @SuppressWarnings("unchecked")
+    public Notebook loadNotes(String filePath) {
+        ArrayList<Note> notebook = new ArrayList<>();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            notebook = (ArrayList<Note>) ois.readObject();
+
+        } catch (FileNotFoundException e) { // if no existing storage file, then create a new storage file
+            File file = new File(filePath);
+            try {
+                file.createNewFile();
+            } catch (IOException e1) {
+                System.err.println("Error creating new file: " + e1.getMessage());
+            }
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Class not found: " + e.getMessage());
+
+        } catch (IOException e) {
+            System.err.println("Error reading tasks from file: " + e.getMessage());
+        }
+        return notebook.isEmpty() ? new Notebook() : new Notebook(notebook);
+    }
 }
