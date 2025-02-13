@@ -42,7 +42,6 @@ public class Tasklist {
      */
     public void addTask(Task task) {
         this.tasks.add(task);
-        return;
     }
 
     /**
