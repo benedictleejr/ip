@@ -1,10 +1,12 @@
 package wooper;
 
+import java.io.Serializable;
+
 /**
  * Class which encapsulates notes, small snippets of textual information the
  * user wants to record
  */
-public class Note {
+public class Note implements Serializable {
     protected String title;
     protected String content;
 

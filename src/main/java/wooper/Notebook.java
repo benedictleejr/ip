@@ -1,12 +1,13 @@
 package wooper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Stores a collection of notes, which are small snippets of textual information
  * the user wants to record
  */
-public class Notebook {
+public class Notebook implements Serializable {
     protected ArrayList<Note> notebook;
 
     public Notebook() {
@@ -21,11 +22,11 @@ public class Notebook {
         return this.notebook;
     }
 
-    public int numberOfNotes() {
+    public int getNotebookSize() {
         return this.notebook.size();
     }
 
-    public Note getTask(int index) {
+    public Note getNote(int index) {
         return this.notebook.get(index);
     }
 

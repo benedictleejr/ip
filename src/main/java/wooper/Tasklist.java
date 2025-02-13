@@ -28,6 +28,14 @@ public class Tasklist {
     }
 
     /**
+     * Returns the number of tasks on the tasklist
+     * @return int number of tasks on the tasklist
+     */
+    public int getTasklistSize() {
+        return this.tasks.size();
+    }
+
+    /**
      * Gets a specific task from the tasklist.
      * @param index index of the task to get
      * @return the task at the specified index
