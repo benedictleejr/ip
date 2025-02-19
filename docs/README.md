@@ -1,30 +1,44 @@
 # Wooper User Guide
+![Wooper App](docs/Ui.png)
 
-// Update the title above to match the actual product name
+## Welcome to Wooper!
+Wooper is your friendly chatbot assistant, helping you manage tasks and notes easily.
 
-// Product screenshot goes here
+## Features
 
-// Product intro goes here
+### Viewing Tasks & Notes
+- **List tasks:** `list tasks`
+- **List notes:** `list notes`
+- **View tasks by date:** `view YYYY-MM-DD`
+- **Find tasks:** `find <keyword>`
 
-## Adding deadlines
+### Adding Tasks
+- **To-Do:** `todo <task>`
+- **Deadline:** `deadline <task> /by YYYY-MM-DD HH:MM`
+- **Event:** `event <task> /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM`
 
-// Describe the action and its outcome.
+### Adding Notes
+- **Create a note:** `note <title> /content <content>`
 
-// Give examples of usage
+### Managing Tasks
+- **Mark task as done:** `mark <task number>`
+- **Unmark task:** `unmark <task number>`
+- **Delete task:** `deltask <task number>`
 
-Example: `keyword (optional arguments)`
+### Managing Notes
+- **Delete note:** `delnote <note number>`
 
-// A description of the expected outcome goes here
+### Exiting
+- **Exit Wooper:** `exit`
 
+## Example Usage
 ```
-expected output
+todo Buy groceries
+view 2025-02-25
+mark 2
+deltask 3
+exit
 ```
 
-## Feature ABC
+Enjoy managing your tasks and notes with Wooper! 🎉
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
