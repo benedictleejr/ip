@@ -18,6 +18,9 @@ public class Wooper {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input
+     * @return
      */
     public String getResponse(String input) {
         StringBuilder response = new StringBuilder();
