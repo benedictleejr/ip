@@ -1,5 +1,5 @@
 # Wooper User Guide
-![Wooper App](docs/Ui.png)
+![Wooper App](./Ui.png)
 
 ## Welcome to Wooper!
 Wooper is your friendly chatbot assistant, helping you manage tasks and notes easily.
