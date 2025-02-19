@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 /**
  * Responsible for saving and loading tasks from a file.
- * It also stores an arraylist of tasks, to be kept in sync with the main program.
+ * It also stores an arraylist of tasks, to be kept in sync with the main
+ * program.
  */
 public class Storage {
     protected ArrayList<Task> tasks;
@@ -19,7 +20,9 @@ public class Storage {
 
     /**
      * Saves all current tasks to a file, for persistent memory.
+     *
      * @param filePath path to tasklist text file
+     * @param tasks list of tasks to be saved
      */
     public void saveTasks(String filePath, ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -31,8 +34,10 @@ public class Storage {
     }
 
     /**
-     * Saves all current notes  to a file, for persistent memory.
+     * Saves all current notes to a file, for persistent memory.
+     *
      * @param filePath path to notebook text file
+     * @param notes list of notes to be saved
      */
     public void saveNotes(String filePath, ArrayList<Note> notes) {
         this.notes = notes;
@@ -45,6 +50,7 @@ public class Storage {
 
     /**
      * Loads tasks from a file.
+     *
      * @param filePath path to the file to load tasks from
      * @return a Tasklist object containing the tasks loaded from the file
      */
@@ -73,7 +79,8 @@ public class Storage {
 
     /**
      * Loads notes from a file.
-     * @param filePath path to the file to load tasks from
+     *
+     * @param filePath path to the file to load notes from
      * @return a Notebook object containing the notes loaded from the file
      */
     @SuppressWarnings("unchecked")

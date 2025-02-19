@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- * Deadline class is a subclass of Task, and represents a task that has a deadline.
+ * Deadline class is a subclass of Task, and represents a task that has a
+ * deadline.
  * Deadlines have a due date and time.
  */
 public class Deadline extends Task {
@@ -14,9 +15,10 @@ public class Deadline extends Task {
     /**
      * Constructor for the Deadline class. Creates a deadline with the specified
      * description, due date and due time
+     *
      * @param description Description of the deadline.
-     * @param dueDate   Due date of the deadline.
-     * @param dueTime   Due time of the deadline.
+     * @param dueDate     Due date of the deadline.
+     * @param dueTime     Due time of the deadline.
      */
     public Deadline(String description, LocalDate dueDate, LocalTime dueTime) {
         super(description);
@@ -26,6 +28,7 @@ public class Deadline extends Task {
 
     /**
      * Method to get the description of the task.
+     *
      * @return Returns the description of the task.
      */
     @Override
@@ -35,6 +38,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the due date of the task as a string in the format "YYYY-MM-DD".
+     *
      * @return Returns the date in format "YYYY-MM-DD"
      */
     public String simpleGetDueDate() {
@@ -42,7 +46,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Gets the due date of the task as a string, nicely formatted to "Monday 9 July 2002".
+     * Gets the due date of the task as a string, nicely formatted to "Monday 9 July
+     * 2002".
+     *
      * @return Returns the deadline of the task.
      */
     public String getDueDate() {
@@ -56,6 +62,7 @@ public class Deadline extends Task {
 
     /**
      * Gets the due time of the task as a string, in the format "HH:MM".
+     *
      * @return Returns the deadline of the task.
      */
     public String getDueTime() {
@@ -63,7 +70,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Parses input string "YYYY-MM-DD" into a LocalDate object and sets it as the due date
+     * Parses input string "YYYY-MM-DD" into a LocalDate object and sets it as the
+     * due date
+     *
      * @param dueDate Due date to be set for the task.
      */
     public void setDueDate(String dueDate) {
@@ -71,7 +80,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Parses input string "HH:MM" into a LocalTime object and sets it as the due time
+     * Parses input string "HH:MM" into a LocalTime object and sets it as the due
+     * time
+     *
      * @param dueTime Due time to be set for the task.
      */
     public void setDueTime(String dueTime) {
@@ -80,6 +91,7 @@ public class Deadline extends Task {
 
     /**
      * Method to get the type of the task.
+     *
      * @return Returns the type of the task.
      */
     @Override

@@ -1,4 +1,5 @@
 package wooper;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -81,7 +82,9 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Gets the opening message for wooper program and formats it nicely to be displayed
+     * Gets the opening message for wooper program and formats it nicely to be
+     * displayed
+     *
      * @param img image to be displayed as wooper bot
      * @return DialogBox to be appended to display
      */
@@ -93,8 +96,9 @@ public class DialogBox extends HBox {
 
     /**
      * Converts user text and image into dialogbox to be displayed
+     *
      * @param text text input from user
-     * @param img user's image
+     * @param img  user's image
      * @return DialogBox to be displayed
      */
     public static DialogBox getUserDialog(String text, Image img) {
@@ -103,8 +107,9 @@ public class DialogBox extends HBox {
 
     /**
      * Converts output from program into dialogbox to be displayed
+     *
      * @param text output text from program
-     * @param img wooper bot's image
+     * @param img  wooper bot's image
      * @return DialogBox to be displayed
      */
     public static DialogBox getWooperDialog(String text, Image img) {

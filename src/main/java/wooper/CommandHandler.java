@@ -44,6 +44,7 @@ public class CommandHandler {
 
     /**
      * Retrieves list of either all tasks or notes, and formats for output
+     *
      * @return formatted list of all tasks/notes
      */
     public String handleList(Parser.CommandType command) {
@@ -82,6 +83,7 @@ public class CommandHandler {
      * Given user input, handles deletion of a task OR note.
      * If successful, returns success message
      * Else, returns Invalid message
+     *
      * @param l The string array containing the user input
      * @return Success or invalid message
      */
@@ -120,6 +122,7 @@ public class CommandHandler {
 
     /**
      * Handles the viewing of tasks on a specific date.
+     *
      * @param l The string array containing the user input.
      * @return Formatted String of tasks on specified date
      */
@@ -140,6 +143,7 @@ public class CommandHandler {
 
     /**
      * Handles searching for a task based on keyword
+     *
      * @param l The string array containing the user input.
      * @return Formatted String of tasks matching keyword
      */
@@ -166,8 +170,9 @@ public class CommandHandler {
 
     /**
      * Handles marking a task as done/not done
+     *
      * @param command Command type MARK or UNMARK
-     * @param l The string array containing the user input.
+     * @param l       The string array containing the user input.
      * @return Success message or error message.
      */
     public String handleMarking(Parser.CommandType command, String[] l) {
@@ -200,6 +205,7 @@ public class CommandHandler {
 
     /**
      * Handles the creation of a new note.
+     *
      * @param l The string array containing the user input.
      * @return output after successful creation
      */
@@ -237,6 +243,7 @@ public class CommandHandler {
 
     /**
      * Handles the creation of a new ToDo task.
+     *
      * @param l The string array containing the user input.
      * @return output after successful creation
      */
@@ -260,6 +267,7 @@ public class CommandHandler {
 
     /**
      * Handles the creation of a new Deadline task.
+     *
      * @param l The string array containing the user input.
      */
     public String handleDeadline(String[] l) {
@@ -301,6 +309,7 @@ public class CommandHandler {
 
     /**
      * Handles the creation of a new Event task.
+     *
      * @param l The string array containing the user input.
      */
     public String handleEvent(String[] l) {

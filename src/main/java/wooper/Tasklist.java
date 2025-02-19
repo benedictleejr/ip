@@ -21,6 +21,7 @@ public class Tasklist {
 
     /**
      * Returns the tasklist.
+     *
      * @return the tasklist
      */
     public ArrayList<Task> getAllTasks() {
@@ -29,6 +30,7 @@ public class Tasklist {
 
     /**
      * Returns the number of tasks on the tasklist
+     *
      * @return int number of tasks on the tasklist
      */
     public int getTasklistSize() {
@@ -37,6 +39,7 @@ public class Tasklist {
 
     /**
      * Gets a specific task from the tasklist.
+     *
      * @param index index of the task to get
      * @return the task at the specified index
      */
@@ -46,6 +49,7 @@ public class Tasklist {
 
     /**
      * Adds a task to the tasklist.
+     *
      * @param task task to be added to the tasklist
      */
     public void addTask(Task task) {
@@ -54,6 +58,7 @@ public class Tasklist {
 
     /**
      * Deletes a task from the tasklist
+     *
      * @param index index of the task to be deleted
      */
     public void deleteTask(int index) throws IndexOutOfBoundsException {
@@ -62,19 +67,21 @@ public class Tasklist {
 
     /**
      * Retrieves all deadlines and events happening on a certain date.
+     *
      * @param date date to check for deadlines/events in format "YYYY-MM-DD"
      * @return ArrayList of tasks happening on the specified date
      */
     public List<Task> getTasksOnDate(String date) {
         return this.tasks.stream()
                 .filter(t -> (t instanceof Deadline && ((Deadline) t).simpleGetDueDate().equals(date))
-                    || (t instanceof Event && ((Event) t).simpleGetStartDate().equals(date)))
+                        || (t instanceof Event && ((Event) t).simpleGetStartDate().equals(date)))
                 .collect(Collectors.toList());
     }
 
     /**
      * Searchs tasklist for all tasks containing the keyword,
      * and returns an arraylist of those tasks
+     *
      * @param keyword keyword to search for in task descriptions
      * @return ArrayList of tasks containing the keyword
      * @throws WooperException if no tasks are found

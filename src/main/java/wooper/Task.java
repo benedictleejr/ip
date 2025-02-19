@@ -12,6 +12,7 @@ public abstract class Task implements Serializable {
 
     /**
      * All tasks have a description, and an isDone status
+     *
      * @param description
      */
     public Task(String description) {
@@ -21,6 +22,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Method to get the status icon of the task.
+     *
      * @return Returns the status icon of the task - "X" if done, " " if not done.
      */
     public String getStatusIcon() {
@@ -29,6 +31,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Method to get the description of the task.
+     *
      * @return Returns the description of the task.
      */
     public String getDescription() {
@@ -51,12 +54,15 @@ public abstract class Task implements Serializable {
 
     /**
      * Returns a string of the type of task invoking this method.
-     * @return String in the format of "t", where t is the first letter of the task type
+     *
+     * @return String in the format of "t", where t is the first letter of the task
+     *         type
      */
     public abstract String getTaskType();
 
     /**
      * Capitalizes the first letter of a string and makes the rest lowercase.
+     *
      * @param str The string to capitalize.
      * @return The capitalized string.
      */

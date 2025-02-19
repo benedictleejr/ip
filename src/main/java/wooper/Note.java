@@ -12,6 +12,7 @@ public class Note implements Serializable {
 
     /**
      * Initializes a new Note object with a given title and content
+     *
      * @param title title of the note
      * @param content content of the note
      */
@@ -20,20 +21,22 @@ public class Note implements Serializable {
         this.content = content;
     }
 
+    /**
+     * Gets title of a note
+     *
+     * @return String of the note's title
+     */
     public String getTitle() {
         return this.title;
     }
 
+    /**
+     * Gets content of a note
+     *
+     * @return String of the note's content
+     */
     public String getContent() {
         return this.content;
-    }
-
-    public void editTitle(String newTitle) {
-        this.title = newTitle;
-    }
-
-    public void editContent(String newContent) {
-        this.content = newContent;
     }
 
 }

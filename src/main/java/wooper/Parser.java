@@ -15,7 +15,7 @@ public class Parser {
      */
     public enum CommandType {
         EXIT, LISTTASKS, LISTNOTES, TODO, DEADLINE, EVENT, NOTE, MARK, UNMARK,
-            DELTASK, DELNOTE, VIEW, FIND, INVALID
+        DELTASK, DELNOTE, VIEW, FIND, INVALID
     }
 
     public Parser() {
@@ -24,6 +24,7 @@ public class Parser {
 
     /**
      * Parses the user input to determine the command type.
+     *
      * @param action User input.
      * @return Returns the command type.
      */
